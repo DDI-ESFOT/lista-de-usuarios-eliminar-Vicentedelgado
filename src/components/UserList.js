@@ -30,11 +30,19 @@ const UserList = ({ users }) => {
     document.querySelector("#lastname").value = "";
   };
 
-  const handDeleteUser = (index) => {
-      console.log("eventEliminar",index);
-      setUsersList((prevState) =>{
-          return prevState.filter( (user,i) => i !== index);
-     });
+  const handDeleteUser = (event) => {
+      //console.log("eventEliminar",index);
+      //setUsersList((prevState) =>{
+          //return prevState.filter( (user,i) => i !== index);
+     //});
+      const index = usersList.length;
+      setUsersList((newArray) =>{
+          newArray.pop();
+          return[...newArray];
+
+      });
+      document.querySelector("#name").value = "";
+      document.querySelector("#lastname").value = "";
 
   };
 
@@ -44,9 +52,7 @@ const UserList = ({ users }) => {
       <input type="text" id="name" placeholder="Ingrese un nombre" />
       <input type="text" id="lastname" placeholder="Ingrese un apellido" />
       <button onClick={handleAddUser}>Añadir</button>
-        {usersList.map( (user, index) => {
-            return <button key={index} onClick={() => handDeleteUser(index)}>Eliminar el último usuario</button>;
-        })}
+        <button onClick={handDeleteUser}>Eliminar el último usuario</button>
       <ul>
         {usersList.map((user, index) => {
           return <li key={Math.random()}>{formatName(user)}</li>;
