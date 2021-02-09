@@ -30,13 +30,23 @@ const UserList = ({ users }) => {
     document.querySelector("#lastname").value = "";
   };
 
+  const handDeleteUser = (index) => {
+      console.log("eventEliminar",index);
+      setUsersList((prevState) =>{
+          return prevState.filter( (user,i) => i !== index);
+     });
+
+  };
+
   return (
     <>
       <h1>Lista de usuarios ({usersList.length} usuarios)</h1>
       <input type="text" id="name" placeholder="Ingrese un nombre" />
       <input type="text" id="lastname" placeholder="Ingrese un apellido" />
       <button onClick={handleAddUser}>Añadir</button>
-      <button>Eliminar el último usuario</button>
+        {usersList.map( (user, index) => {
+            return <button key={index} onClick={() => handDeleteUser(index)}>Eliminar el último usuario</button>;
+        })}
       <ul>
         {usersList.map((user, index) => {
           return <li key={Math.random()}>{formatName(user)}</li>;
